@@ -1,0 +1,55 @@
+# Syntax Coloring Map For FreeRTOS
+# https://arduino.github.io/arduino-cli/library-specification/#keywords
+# Formatted by a single true tab (not spaces)
+
+# Datatypes (KEYWORD1)
+AdmuWater	KEYWORD1
+GMP	KEYWORD1
+PhiGO	KEYWORD1
+PHIGO	KEYWORD1
+EnviSense	KEYWORD1
+
+# Methods and Functions (KEYWORD2)
+initAtlasEZO	KEYWORD2
+AtlasEZO	KEYWORD2
+scan	KEYWORD2
+
+getStatus	KEYWORD2
+getPH	KEYWORD2
+getORP	KEYWORD2
+getDO	KEYWORD2
+getSAT	KEYWORD2
+getRTD	KEYWORD2
+getEC	KEYWORD2
+getTDS	KEYWORD2
+getSAL	KEYWORD2
+getSG	KEYWORD2
+getSWL	KEYWORD2
+getDEPTH	KEYWORD2
+getBattVolts	KEYWORD2
+getBattPercent	KEYWORD2
+getBattStatus	KEYWORD2
+getDepth	KEYWORD2
+getSWL	KEYWORD2
+
+initSDCard	KEYWORD2
+writeData	KEYWORD2
+appendData	KEYWORD2
+
+gprsInit	KEYWORD2
+gprsGoogleSheet	KEYWORD2
+gprsThingSpeak	KEYWORD2
+gprsGoogleFirebase	KEYWORD2
+gprsGetLocalTime	KEYWORD2
+
+getAveVal	KEYWORD2
+
+# Instances (KEYWORD2)
+
+# Structures (KEYWORD3)
+
+# Constants (LITERAL1)
+SUCCESS	LITERAL1
+SYNTAX_ERROR	LITERAL1
+NOT_READY	LITERAL1
+NO_DATA	LITERAL1
