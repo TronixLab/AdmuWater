@@ -23,8 +23,49 @@ This program is in response to Executive Order No. 56 (2018). It will be underta
 # AdmuWater Library
 Arduino library for ESP32 provides simplified functions for AdmuWater projects. The following features are:
 * Reading, scanning, and calibrating sensor data from Scientific Atlas EZO sensor board.
-* Serial port and Bluetooth terminal user command line interface.
+* Serial port, Bluetooth and Wi-Fi terminal user command line interface for sensor calibration and network configuration.
 * Logging sensor data to micro-SD card.
-* GPRS wireless connection via GSM SIM 800l module for cloud computing.
+* Wireless connection via GSM GPRS SIM 800l, and Wi-Fi module for cloud computing.
+* Getting local timestamp from GSM SIM 800l module.
 * Storing data to Google sheet, [ThingSpeak](https://thingspeak.com/), and [Google Firebase](https://firebase.google.com/).
 * Visualization of sensor data at Admuwater remote dashboard.
+
+# AdmuWater API
+## AdmuWater(void)
+* **Description:** Create an object instance.
+* **Example Code**:
+``` 
+AdmuWater PhiGO;
+```
+
+## scan(uint8_t ezodo_adr, uint8_t ezoorp_adr, uint8_t ezoph_adr, uint8_t ezoec_adr, uint8_t ezortd_adr)
+* **Description:** scan Atlas EZO sensor board I2C board.
+* **Parameters:** ezodo_adr, ezoorp_adr, ezoph_adr, ezoec_adr, and ezortd_adr are the decimal or hex I2C address of the EZO sensor board. 
+* **Returns:** print the scanned devices.
+* **Example Code**:
+``` 
+#define EZODO_ADR  97       // default I2C address number for EZO DO circuit board
+#define EZOORP_ADR 98       // default I2C address number for EZO ORP circuit board
+#define EZOPH_ADR  99       // default I2C address number for EZO pH circuit board
+#define EZOEC_ADR  100      // default I2C address number for EZO EC circuit board
+#define EZORTD_ADR 102      // default I2C address number for EZO RTD circuit board
+...
+Serial.begin(115200);
+...
+PhiGO.scan(EZODO_ADR, EZOORP_ADR, EZOPH_ADR, EZOEC_ADR, EZORTD_ADR);
+```
+
+## initAtlasEZO(uint8_t ezodo_adr, uint8_t ezoorp_adr, uint8_t ezoph_adr, uint8_t ezoec_adr, uint8_t ezortd_adr)
+* **Description:** initialize Atlas EZO sensor board for I2C communication.
+* **Parameters:** ezodo_adr, ezoorp_adr, ezoph_adr, ezoec_adr, and ezortd_adr are the decimal or hex I2C address of the EZO sensor board. 
+* **Returns:** none.
+* **Example Code**:
+``` 
+#define EZODO_ADR  97       // default I2C address number for EZO DO circuit board
+#define EZOORP_ADR 98       // default I2C address number for EZO ORP circuit board
+#define EZOPH_ADR  99       // default I2C address number for EZO pH circuit board
+#define EZOEC_ADR  100      // default I2C address number for EZO EC circuit board
+#define EZORTD_ADR 102      // default I2C address number for EZO RTD circuit board
+...
+PhiGO.initAtlasEZO(EZODO_ADR, EZOORP_ADR, EZOPH_ADR, EZOEC_ADR, EZORTD_ADR);
+```
