@@ -325,3 +325,24 @@ PhiGO.gprsInit(apn, apn_u, apn_p);
 String timestamp = PhiGO.gprsGetLocalTime();
 if (!timestamp.equals("")) Serial.println("GPRS time stamp: " + timestamp);
 ```
+
+# AdmuWater Command Lines
+| Terminal Command | Description |
+| ---------------- | ----------- |
+| admuwater -help | print command line for reference. |
+| admuwater -info | print device/product information. |
+| admuwater conf -net gprs | config network type to GPRS. |
+| admuwater conf -net wifi | config network type to Wi-Fi. |
+| admuwater cal -s ph -p low | pH two point calibration at lowpoint (pH 4). |
+| admuwater cal -s ph -p mid | pH single point calibration at midpoint (pH 7). |
+| admuwater cal -s ph -p high | pH three point calibration at highpoint (pH 10). |
+| admuwater cal -s ph clear | pH delete calibration data. |
+| admuwater cal -s do -p atm | DO (Disolve Oxygen) calibrate to atmospheric oxygen levels. |
+| admuwater cal -s do -p zero | DO (Disolve Oxygen) calibrate device to 0 dissolved oxygen. |
+| admuwater cal -s do clear | DO (Disolve Oxygen) delete calibration data. |
+| admuwater cal -s ec -p low | EC (Electrical Conductivity) low end calibration at 12880uS/cm. |
+| admuwater cal -s ec -p high | EC (Electrical Conductivity) high end calibration at 80000uS/cm. |
+| admuwater cal -s ec -p dry | EC (Electrical Conductivity) dry calibration. |
+| admuwater cal -s ec clear | EC (Electrical Conductivity) delete calibration data. |
+| admuwater cal -s rtd -p boil | Temperature calibration at boiling point (100°C). |
+| admuwater cal -s rtd clear | Temperature delete calibration data. |
