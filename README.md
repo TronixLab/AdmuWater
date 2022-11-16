@@ -14,15 +14,17 @@ This project is funded by the Natural Environment Research Council (NERC) for it
 </details>
 
 <details>
-<summary>Philippine Groundwater Outlook (PhiGO)</summary>
-The PhiGO is a three-year collaborative project led by Andrew Barkwith, Ph.D. from the British Geological Survey (BGS) and Ma. Aileen Leah G. Guzman, Ph.D. from the Ateneo de Manila University (AdMU). This project is funded by the PH-UK Newton Agham Joint S&T Cooperation Program on Understanding the Impacts of Hydrometeorological Hazards in the Philippines
-
-This project is funded by the Natural Environment Research Council (NERC) for its British constituents and by the Department of Science and Technology-Philippine Council for Industry, Energy, and Emerging Technology Research and Development (DOST-PCIEERD) for its Philippine constituents.
-</details>
-
-<details>
 <summary>Water for Tourism</summary>
 The Water for Tourism is headed by Maria AIleen Leah G. Guzman, PhD, Associate Professor and Department Chairperson of Environmental Science, Ateneo de Manila University. The proposed program aims to create a comprehensive water resource assessment and management plan for the Nabaoy River Watershed and Boracay Island through two projects. The project also targets UN SDG 6 which aims to ensure availability and sustainable management of water and sanitation for all.
 
 This program is in response to Executive Order No. 56 (2018). It will be undertaken with member agencies (NWRB, DOST-PCIEERD, DOST-PNRI, DOST-PAGASA) of the Boracay Inter-Agency Task Force (tasked to reverse the degradation of Boracay Island) in collaboration with both local (Ateneo de Manila University and Aklan State University) and international academic institutions (British Geological Survey and Imperial College London).
 </details>
+
+# AdmuWater Library
+Arduino library for ESP32 provides simplified functions for AdmuWater projects. The following features are:
+* Reading, scanning, and calibrating sensor data from Scientific Atlas EZO sensor board.
+* Serial port and Bluetooth terminal user command line interface.
+* Logging sensor data to micro-SD card.
+* GPRS wireless connection via GSM SIM 800l module for cloud computing.
+* Storing data to Google sheet, [ThingSpeak](https://thingspeak.com/), and [Google Firebase](https://firebase.google.com/).
+* Visualization of sensor data at Admuwater remote dashboard.
