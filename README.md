@@ -69,3 +69,84 @@ PhiGO.scan(EZODO_ADR, EZOORP_ADR, EZOPH_ADR, EZOEC_ADR, EZORTD_ADR);
 ...
 PhiGO.initAtlasEZO(EZODO_ADR, EZOORP_ADR, EZOPH_ADR, EZOEC_ADR, EZORTD_ADR);
 ```
+
+## AtlasEZO(uint8_t address, const char* cmd, uint16_t time)
+* **Description:** writes commands to Atlas EZO sensor board.
+* **Parameters:** *address*: decimal or hex I2C address of the EZO sensor board. *cmd*: Atlas EZO sensor board command for I2C protocol. *time*: the required delay in milli-second to send the command.
+* **Returns:** none.
+* **Example Code**:
+``` 
+#define EZOPH_ADR  99       // default I2C address number for EZO pH circuit board
+...
+PhiGO.initAtlasEZO(EZODO_ADR, EZOORP_ADR, EZOPH_ADR, EZOEC_ADR, EZORTD_ADR);
+...
+// read Atlas Scientific EZO-pH sensor board
+PhiGO.AtlasEZO(EZOPH_ADR, "R", 815);
+```
+
+## getStatus()
+* **Description:** receives I2C response after sending command.
+* **Parameters:** none.
+* **Returns:** *SUCCESS* if command was successful. *SYNTAX_ERROR* if command has failed. *NOT_READY* if command has not yet been finished calculating. *NO_DATA* if there is no further data to send. 
+* **Example Code**:
+``` 
+// read Atlas Scientific EZO-pH sensor board
+PhiGO.AtlasEZO(EZOPH_ADR, "R", 815);
+if (PhiGO.getStatus() == AdmuWater::SUCCESS) {
+  // dome something here...
+}
+```
+
+## getPH()
+* **Description:** get the pH readings from Scientific Atlas sensor probe.
+* **Parameters:** none.
+* **Returns:** float data type ranges from 0.001 − 14.000 with a resolution of 0.001 and accuracy of +/– 0.002.
+* **Example Code**:
+``` 
+ph_val = PhiGO.getPH();
+```
+
+## getORP()
+* **Description:** get the oxidation or reduction potential readings from Scientific Atlas sensor probe.
+* **Parameters:** none.
+* **Returns:** float data type ranges from -1019.9mV − 1019.9mV, with an accuracy of +/– 1mV.
+* **Example Code**:
+``` 
+orp_val = PhiGO.getORP();
+```
+
+## getDO()
+* **Description:** get the disolve oxygen readings from Scientific Atlas sensor probe. This also enable readings percent saturation.
+* **Parameters:** none.
+* **Returns:** float data type ranges from 0.01 − 100+ mg/L, with an accuracy of +/– 0.05 mg/L.
+* **Example Code**:
+``` 
+do_val = PhiGO.getDO();
+```
+
+## getSAT()
+* **Description:** get the percent saturation from Scientific Atlas sensor probe.
+* **Parameters:** none.
+* **Returns:** float data type ranges from 0.1 − 400+ % saturation.
+* **Example Code**:
+``` 
+sat_val = PhiGO.getSAT();
+```
+
+## getRTD()
+* **Description:** get the temperature readings in degrees celcius from Scientific Atlas sensor probe.
+* **Parameters:** none.
+* **Returns:** float data type ranges from -126.000 °C − 1254 °C, with a resolution of 0.001 and accuracy of +/– (0.1 + 0.0017 x °C).
+* **Example Code**:
+``` 
+temp_val = PhiGO.getRTD();
+```
+
+## getRTD()
+* **Description:** get the temperature readings in degrees celcius from Scientific Atlas sensor probe.
+* **Parameters:** none.
+* **Returns:** float data type ranges from -126.000 °C − 1254 °C, with a resolution of 0.001 and accuracy of +/– (0.1 + 0.0017 x °C).
+* **Example Code**:
+``` 
+temp_val = PhiGO.getRTD();
+```
