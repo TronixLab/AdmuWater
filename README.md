@@ -272,3 +272,56 @@ String apn_p = "";                     // APN-Password, not set by default
 PhiGO.gprsInit(apn, apn_u, apn_p);
 ```
 
+## gprsGoogleSheet(String google_script_id, String payload)
+* **Description:** logs sensor data to Google spreadsheet via GPRS HTTP request.
+* **Parameters:** *google_script_id* - Google ID obtain from script file, *payload* - sensor data format to store file to Google spreadsheet.
+* **Returns:** none.
+* **Example Code**:
+``` 
+String GOOGLE_SCRIPT_ID = "AKfycbx7tTKEAYH7EIymHOa0cQefjXvR4fWczm_SaOm5gwWOc6k0VGk5bX6KQ9toE_xgDeBB";
+...
+String GSheet_payload = String("sensor=ESP32") + "&value=" + String(sensor);
+PhiGO.gprsGoogleSheet(GOOGLE_SCRIPT_ID, GSheet_payload);
+```
+
+## gprsThingSpeak(String thingspeak_http_auth, String payload)
+* **Description:** logs sensor data to ThingSpeak IoT platform via GPRS HTTP request.
+* **Parameters:** *thingspeak_http_auth* - authentication code obtain from thingspeak settings, *payload* - sensor data format to store file to thingspeak channel.
+* **Returns:** none.
+* **Example Code**:
+``` 
+String THINGSPEAK_AUTH  = "Z4OX2LWYJDKAS83F";
+...
+String TS_payload = String("&field1=") + String(sensor);
+PhiGO.gprsThingSpeak(THINGSPEAK_AUTH, TS_payload);
+```
+
+## gprsGoogleFirebase(String firebase_host, String firebase_path, String firebase_auth, String payload)
+* **Description:** logs sensor data to Google Firebase real-time database via GPRS HTTP request.
+* **Parameters:** *firebase_host* - url code obtain firebase project, *firebase_path* - location where the sensor data to be stored, and *payload* - sensor data format should be in Javascript object notation (JSON).
+* **Returns:** none.
+* **Example Code**:
+``` 
+String FIREBASE_HOST    = "test-esp32-87a8f-default-rtdb.asia-southeast1.firebasedatabase.app";
+String FIREBASE_AUTH    = "HaNKAUG0lgP1GP4otMP59hYViXIDClxwuazJEbIY";
+String FIREBASE_PATH    = "/Test-Data";
+...
+String Firebase_payload = String("{\"Value\":\"") + String(sensor) + "\"}";
+PhiGO.gprsGoogleFirebase(FIREBASE_HOST, FIREBASE_PATH, FIREBASE_AUTH, Firebase_payload);
+```
+
+## gprsGetLocalTime()
+* **Description:** gets the local timestamp obtain from GSM SIM800l module.
+* **Parameters:** none.
+* **Returns:** parsed string data type of current date and time.
+* **Example Code**:
+``` 
+String apn = "internet";               // APN e.g., Smart: "internet", "smartlte", Globe: "internet.globe.com.ph", "http.globe.com.ph", "mms.globe.com.ph"
+String apn_u = "";                     // APN-Username, not set by default
+String apn_p = "";                     // APN-Password, not set by default
+...
+PhiGO.gprsInit(apn, apn_u, apn_p);
+...
+String timestamp = PhiGO.gprsGetLocalTime();
+if (!timestamp.equals("")) Serial.println("GPRS time stamp: " + timestamp);
+```
