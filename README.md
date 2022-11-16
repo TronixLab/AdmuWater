@@ -98,7 +98,7 @@ if (PhiGO.getStatus() == AdmuWater::SUCCESS) {
 ```
 
 ## getPH()
-* **Description:** get the pH readings from Scientific Atlas sensor probe.
+* **Description:** get the *pH* readings from Scientific Atlas sensor probe.
 * **Parameters:** none.
 * **Returns:** float data type ranges from 0.001 − 14.000 with a resolution of 0.001 and accuracy of +/– 0.002.
 * **Example Code**:
@@ -107,7 +107,7 @@ ph_val = PhiGO.getPH();
 ```
 
 ## getORP()
-* **Description:** get the oxidation or reduction potential readings from Scientific Atlas sensor probe.
+* **Description:** get the *oxidation or reduction potential* readings from Scientific Atlas sensor probe.
 * **Parameters:** none.
 * **Returns:** float data type ranges from -1019.9mV − 1019.9mV, with an accuracy of +/– 1mV.
 * **Example Code**:
@@ -116,7 +116,7 @@ orp_val = PhiGO.getORP();
 ```
 
 ## getDO()
-* **Description:** get the disolve oxygen readings from Scientific Atlas sensor probe. This also enable readings percent saturation.
+* **Description:** get the *disolve oxygen* readings from Scientific Atlas sensor probe. This also enable readings percent saturation.
 * **Parameters:** none.
 * **Returns:** float data type ranges from 0.01 − 100+ mg/L, with an accuracy of +/– 0.05 mg/L.
 * **Example Code**:
@@ -125,7 +125,7 @@ do_val = PhiGO.getDO();
 ```
 
 ## getSAT()
-* **Description:** get the percent saturation from Scientific Atlas sensor probe.
+* **Description:** get the *percent saturation* from Scientific Atlas sensor probe. The readings derived from getDO() function.
 * **Parameters:** none.
 * **Returns:** float data type ranges from 0.1 − 400+ % saturation.
 * **Example Code**:
@@ -134,7 +134,7 @@ sat_val = PhiGO.getSAT();
 ```
 
 ## getRTD()
-* **Description:** get the temperature readings in degrees celcius from Scientific Atlas sensor probe.
+* **Description:** get the *temperature* readings in degrees celcius from Scientific Atlas sensor probe.
 * **Parameters:** none.
 * **Returns:** float data type ranges from -126.000 °C − 1254 °C, with a resolution of 0.001 and accuracy of +/– (0.1 + 0.0017 x °C).
 * **Example Code**:
@@ -142,11 +142,38 @@ sat_val = PhiGO.getSAT();
 temp_val = PhiGO.getRTD();
 ```
 
-## getRTD()
-* **Description:** get the temperature readings in degrees celcius from Scientific Atlas sensor probe.
+## getEC()
+* **Description:** get the *electrical conductivity* readings from Scientific Atlas sensor probe. This also enable readings for total disolve solids, salinity, and specific gravity.
 * **Parameters:** none.
-* **Returns:** float data type ranges from -126.000 °C − 1254 °C, with a resolution of 0.001 and accuracy of +/– (0.1 + 0.0017 x °C).
+* **Returns:** long data type ranges from 0.07 − 500,000+ μS/cm, with an accuracy of +/– 2%.
 * **Example Code**:
 ``` 
-temp_val = PhiGO.getRTD();
+ec_val = PhiGO.getEC();
+```
+
+## getTDS()
+* **Description:** get the *total disolve solids* readings from Scientific Atlas sensor probe. The readings derived from getEC() function.
+* **Parameters:** none.
+* **Returns:** long data type, the data range, resolution, and accuracy are not stated in the datasheet.
+* **Example Code**:
+``` 
+tds_val = PhiGO.getTDS();
+```
+
+## getSAL()
+* **Description:** get the *salinity* readings from Scientific Atlas sensor probe. The readings derived from getEC() function.
+* **Parameters:** none.
+* **Returns:** float data type ranges from PSU (ppt) 0.00 – 42.00.
+* **Example Code**:
+``` 
+sal_val = PhiGO.getSAL();
+```
+
+## getSG()
+* **Description:** get the *specific gravity* readings from Scientific Atlas sensor probe. The readings derived from getEC() function.
+* **Parameters:** none.
+* **Returns:** float data type ranges from 1.00 – 1.300 (sea water only).
+* **Example Code**:
+``` 
+sg_val = PhiGO.getSG();
 ```
