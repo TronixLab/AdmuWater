@@ -72,7 +72,7 @@ PhiGO.initAtlasEZO(EZODO_ADR, EZOORP_ADR, EZOPH_ADR, EZOEC_ADR, EZORTD_ADR);
 
 ## AtlasEZO(uint8_t address, const char* cmd, uint16_t time)
 * **Description:** writes commands to Atlas EZO sensor board.
-* **Parameters:** *address*: decimal or hex I2C address of the EZO sensor board. *cmd*: Atlas EZO sensor board command for I2C protocol. *time*: the required delay in milli-second to send the command.
+* **Parameters:** *address* - decimal or hex I2C address of the EZO sensor board. *cmd* - Atlas EZO sensor board command for I2C protocol. *time* - the required delay in milli-second to send the command.
 * **Returns:** none.
 * **Example Code**:
 ``` 
@@ -103,7 +103,7 @@ if (PhiGO.getStatus() == AdmuWater::SUCCESS) {
 * **Returns:** float data type ranges from 0.001 − 14.000 with a resolution of 0.001 and accuracy of +/– 0.002.
 * **Example Code**:
 ``` 
-ph_val = PhiGO.getPH();
+float ph_val = PhiGO.getPH();
 ```
 
 ## getORP()
@@ -112,7 +112,7 @@ ph_val = PhiGO.getPH();
 * **Returns:** float data type ranges from -1019.9mV − 1019.9mV, with an accuracy of +/– 1mV.
 * **Example Code**:
 ``` 
-orp_val = PhiGO.getORP();
+float orp_val = PhiGO.getORP();
 ```
 
 ## getDO()
@@ -121,7 +121,7 @@ orp_val = PhiGO.getORP();
 * **Returns:** float data type ranges from 0.01 − 100+ mg/L, with an accuracy of +/– 0.05 mg/L.
 * **Example Code**:
 ``` 
-do_val = PhiGO.getDO();
+float do_val = PhiGO.getDO();
 ```
 
 ## getSAT()
@@ -130,7 +130,7 @@ do_val = PhiGO.getDO();
 * **Returns:** float data type ranges from 0.1 − 400+ % saturation.
 * **Example Code**:
 ``` 
-sat_val = PhiGO.getSAT();
+float sat_val = PhiGO.getSAT();
 ```
 
 ## getRTD()
@@ -139,7 +139,7 @@ sat_val = PhiGO.getSAT();
 * **Returns:** float data type ranges from -126.000 °C − 1254 °C, with a resolution of 0.001 and accuracy of +/– (0.1 + 0.0017 x °C).
 * **Example Code**:
 ``` 
-temp_val = PhiGO.getRTD();
+float temp_val = PhiGO.getRTD();
 ```
 
 ## getEC()
@@ -148,7 +148,7 @@ temp_val = PhiGO.getRTD();
 * **Returns:** long data type ranges from 0.07 − 500,000+ μS/cm, with an accuracy of +/– 2%.
 * **Example Code**:
 ``` 
-ec_val = PhiGO.getEC();
+unsigned long int ec_val = PhiGO.getEC();
 ```
 
 ## getTDS()
@@ -157,7 +157,7 @@ ec_val = PhiGO.getEC();
 * **Returns:** long data type, the data range, resolution, and accuracy are not stated in the datasheet.
 * **Example Code**:
 ``` 
-tds_val = PhiGO.getTDS();
+unsigned long int tds_val = PhiGO.getTDS();
 ```
 
 ## getSAL()
@@ -166,7 +166,7 @@ tds_val = PhiGO.getTDS();
 * **Returns:** float data type ranges from PSU (ppt) 0.00 – 42.00.
 * **Example Code**:
 ``` 
-sal_val = PhiGO.getSAL();
+float sal_val = PhiGO.getSAL();
 ```
 
 ## getSG()
@@ -175,5 +175,100 @@ sal_val = PhiGO.getSAL();
 * **Returns:** float data type ranges from 1.00 – 1.300 (sea water only).
 * **Example Code**:
 ``` 
-sg_val = PhiGO.getSG();
+float sg_val = PhiGO.getSG();
 ```
+
+## getBattVolts()
+* **Description:** get the calculated *battery voltage* (13V max) readings from onboard voltage sensor.
+* **Parameters:** none.
+* **Returns:** float data type ranges from 0 - 13V.
+* **Example Code**:
+``` 
+float batt_volt_val = PhiGO.getBattVolts();
+```
+
+## getBattPercent()
+* **Description:** get the calculated *battery percent level* readings from onboard voltage sensor.
+* **Parameters:** none.
+* **Returns:** int data type ranges from 0 - 100% (10.5V - 13V).
+* **Example Code**:
+``` 
+int batt_volt_percent_val = PhiGO.getBattPercent();
+```
+
+## getBattStatus()
+* **Description:** get the *battery status* readings from onboard voltage sensor.
+* **Parameters:** none.
+* **Returns:** string data type, *"Fully charge"* if *battery percent level* <= 100% and >= 97%, *"OK"* if *battery percent level* < 97% and >= 75%, *"Low charge"* if *battery percent level* < 75% and >= 25%, and *"discharge"* if *battery percent level* < 25%.
+* **Example Code**:
+``` 
+String batt_status = PhiGO.getBattStatus();
+```
+
+## getDEPTH()
+* **Description:** get the calculated *water depth* (0 - 30meters proportional to 4 - 20mA) readings from Sendo pressure sensor. The calculation based on ohms law and slope intercept equations.
+* **Parameters:** none.
+* **Returns:** float data type ranges from 0 - 30m.
+* **Example Code**:
+``` 
+float DEPTH_val = PhiGO.getDEPTH();
+```
+
+## getDepth(uint8_t adc_zero_depth, float depth_sensor_slope)
+* **Description:** get the calculated *water depth* readings from Sendo pressure sensor. The calculation based on predefined calibration.
+* **Parameters:** *adc_zero_depth* - a constant factor for zero reference, and *depth_sensor_slope* - a computed constant factor for linearity.
+* **Returns:** float data type, ranges are not defined.
+* **Example Code**:
+``` 
+#define ADC_ZERO_DEPTH 173
+#define DEPTH_SENSOR_SLOPE 38.666667F
+...
+float depth_val = PhiGO.getDepth(ADC_ZERO_DEPTH, DEPTH_SENSOR_SLOPE);
+```
+
+## initSDCard()
+* **Description:** initialized communication for micro SD card interface. Check if the SD card is properly mounted.
+* **Parameters:** none.
+* **Returns:** prints SD card status.
+* **Example Code**:
+``` 
+PhiGO.initSDCard();
+```
+
+## writeData(const char* path, const char* message)
+* **Description:** writes new data to the predefined file path directory on SD card. This will overide the previous data.
+* **Parameters:** *path* - is the file directory where the data to be stored, *message* - the data to be write.
+* **Returns:** none.
+* **Example Code**:
+``` 
+// writing header labels for the data to be log
+PhiGO.writeData("/data.txt", "timestamp, Battery level, Charge status, pH, DO, SAT, TempC, EC, TDS, SAL, SG, ORP, Depth, SWL \r\n");
+```
+
+## appendData(const char* path, const char* message)
+* **Description:** add new data to the predefined file path directory on SD card.
+* **Parameters:** *path* - is the file directory where the data to be stored, *message* - the data to be write.
+* **Returns:** none.
+* **Example Code**:
+``` 
+// sensor data to be log
+const int BUFF_SIZE = 256;
+char data[BUFF_SIZE];
+snprintf(data, BUFF_SIZE, "%s, %.2f, %s, %.2f, %.2f, %.2f, %.2f, %u, %u, %.2f, %.2f, %.2f, %.2f, %.2f \r\n", timestamp, batt_volt_val, batt_status, ph_val, do_val, sat_val, temp_val, ec_val, tds_val, sal_val, sg_val, orp_val, depth_val, swl_val);
+
+PhiGO.appendData("/data.txt", data);
+```
+
+## gprsInit(String apn, String username, String password)
+* **Description:** initialize GPRS connection of GSM SIM 800l module for cellular network data transmission.
+* **Parameters:** *apn* - access point name e.g., "internet" or "smartlte" for SMART sim card, *username* - apn username if set, and *password* - apn password if set.
+* **Returns:** none.
+* **Example Code**:
+``` 
+String apn = "internet";               // APN e.g., Smart: "internet", "smartlte", Globe: "internet.globe.com.ph", "http.globe.com.ph", "mms.globe.com.ph"
+String apn_u = "";                     // APN-Username, not set by default
+String apn_p = "";                     // APN-Password, not set by default
+...
+PhiGO.gprsInit(apn, apn_u, apn_p);
+```
+
