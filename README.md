@@ -364,4 +364,18 @@ The new sensor board was designed using onen-source and online [electronic desig
 
 
 
-*The circuit board is still undergoing testing and development.*.
+**Note:** *The circuit board is still undergoing testing and development.*.
+
+## 3.1 Schematic Diagram
+| ![space-1.jpg](https://github.com/TronixLab/AdmuWater/blob/main/pcb/Schematic_AdmuWater_2022-12-26.png) | 
+|:--:| 
+| *Schematic diagram of GMP-PhiGO Rev. 2.0* |
+
+## 3.1 Sensor Board
+| ![space-1.jpg](https://github.com/TronixLab/AdmuWater/blob/main/pcb/v2.png) | 
+|:--:| 
+| *PCB 3D model of GMP-PhiGO Rev. 2.0* |
+
+| ![space-1.jpg](https://github.com/TronixLab/AdmuWater/blob/main/pcb/1672029533606.jpg) | 
+|:--:| 
+| *Assembled GMP-PhiGO Rev. 2.0* |
