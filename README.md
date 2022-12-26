@@ -1,4 +1,4 @@
-# About AdmuWater
+# 1 About AdmuWater
 [Admuwater](https://admuwater.com/) is a collection of projects for monitoring ground water quality and quantity across the Philippines. It provides real-time remote monitoring and data visualization dashboard for the following projects, this includes [Ground Water Management Plan](https://admuwater.com/gmp), [Philippine Ground Water Outlook](https://admuwater.com/phigo), and [Water for Tourism](https://admuwater.com/wft)
 
 <details>
@@ -20,7 +20,7 @@ The Water for Tourism is headed by Maria AIleen Leah G. Guzman, PhD, Associate P
 This program is in response to Executive Order No. 56 (2018). It will be undertaken with member agencies (NWRB, DOST-PCIEERD, DOST-PNRI, DOST-PAGASA) of the Boracay Inter-Agency Task Force (tasked to reverse the degradation of Boracay Island) in collaboration with both local (Ateneo de Manila University and Aklan State University) and international academic institutions (British Geological Survey and Imperial College London).
 </details>
 
-# AdmuWater Library
+# 2 AdmuWater Library
 Arduino library for ESP32 provides simplified functions for AdmuWater projects. The following features are:
 * Reading, scanning, and calibrating sensor data from Scientific Atlas EZO sensor board.
 * Serial port, Bluetooth and Wi-Fi terminal user command line interface for sensor calibration and network configuration.
@@ -30,15 +30,17 @@ Arduino library for ESP32 provides simplified functions for AdmuWater projects. 
 * Storing data to Google sheet, [ThingSpeak](https://thingspeak.com/), and [Google Firebase](https://firebase.google.com/).
 * Visualization of sensor data at Admuwater remote dashboard.
 
-# AdmuWater API
-## AdmuWater(void)
+**Note:** *The firmware is still undergoing testing and development.*.
+
+## 2.1 AdmuWater API
+### AdmuWater(void)
 * **Description:** Create an object instance.
 * **Example Code**:
 ``` 
 AdmuWater PhiGO;
 ```
 
-## scan(uint8_t ezodo_adr, uint8_t ezoorp_adr, uint8_t ezoph_adr, uint8_t ezoec_adr, uint8_t ezortd_adr)
+### scan(uint8_t ezodo_adr, uint8_t ezoorp_adr, uint8_t ezoph_adr, uint8_t ezoec_adr, uint8_t ezortd_adr)
 * **Description:** scan Atlas EZO sensor board I2C board.
 * **Parameters:** ezodo_adr, ezoorp_adr, ezoph_adr, ezoec_adr, and ezortd_adr are the decimal or hex I2C address of the EZO sensor board. 
 * **Returns:** print the scanned devices.
@@ -55,7 +57,7 @@ Serial.begin(115200);
 PhiGO.scan(EZODO_ADR, EZOORP_ADR, EZOPH_ADR, EZOEC_ADR, EZORTD_ADR);
 ```
 
-## initAtlasEZO(uint8_t ezodo_adr, uint8_t ezoorp_adr, uint8_t ezoph_adr, uint8_t ezoec_adr, uint8_t ezortd_adr)
+### initAtlasEZO(uint8_t ezodo_adr, uint8_t ezoorp_adr, uint8_t ezoph_adr, uint8_t ezoec_adr, uint8_t ezortd_adr)
 * **Description:** initialize Atlas EZO sensor board for I2C communication.
 * **Parameters:** ezodo_adr, ezoorp_adr, ezoph_adr, ezoec_adr, and ezortd_adr are the decimal or hex I2C address of the EZO sensor board. 
 * **Returns:** none.
@@ -70,7 +72,7 @@ PhiGO.scan(EZODO_ADR, EZOORP_ADR, EZOPH_ADR, EZOEC_ADR, EZORTD_ADR);
 PhiGO.initAtlasEZO(EZODO_ADR, EZOORP_ADR, EZOPH_ADR, EZOEC_ADR, EZORTD_ADR);
 ```
 
-## AtlasEZO(uint8_t address, const char* cmd, uint16_t time)
+### AtlasEZO(uint8_t address, const char* cmd, uint16_t time)
 * **Description:** writes commands to Atlas EZO sensor board.
 * **Parameters:** *address* - decimal or hex I2C address of the EZO sensor board. *cmd* - Atlas EZO sensor board command for I2C protocol. *time* - the required delay in milli-second to send the command.
 * **Returns:** none.
@@ -84,7 +86,7 @@ PhiGO.initAtlasEZO(EZODO_ADR, EZOORP_ADR, EZOPH_ADR, EZOEC_ADR, EZORTD_ADR);
 PhiGO.AtlasEZO(EZOPH_ADR, "R", 815);
 ```
 
-## getStatus()
+### getStatus()
 * **Description:** receives I2C response after sending command.
 * **Parameters:** none.
 * **Returns:** *SUCCESS* if command was successful. *SYNTAX_ERROR* if command has failed. *NOT_READY* if command has not yet been finished calculating. *NO_DATA* if there is no further data to send. 
@@ -97,7 +99,7 @@ if (PhiGO.getStatus() == AdmuWater::SUCCESS) {
 }
 ```
 
-## getPH()
+### getPH()
 * **Description:** get the *pH* readings from Scientific Atlas sensor probe.
 * **Parameters:** none.
 * **Returns:** float data type ranges from 0.001 − 14.000 with a resolution of 0.001 and accuracy of +/– 0.002.
@@ -106,7 +108,7 @@ if (PhiGO.getStatus() == AdmuWater::SUCCESS) {
 float ph_val = PhiGO.getPH();
 ```
 
-## getORP()
+### getORP()
 * **Description:** get the *oxidation or reduction potential* readings from Scientific Atlas sensor probe.
 * **Parameters:** none.
 * **Returns:** float data type ranges from -1019.9mV − 1019.9mV, with an accuracy of +/– 1mV.
@@ -115,7 +117,7 @@ float ph_val = PhiGO.getPH();
 float orp_val = PhiGO.getORP();
 ```
 
-## getDO()
+### getDO()
 * **Description:** get the *disolve oxygen* readings from Scientific Atlas sensor probe. This also enable readings percent saturation.
 * **Parameters:** none.
 * **Returns:** float data type ranges from 0.01 − 100+ mg/L, with an accuracy of +/– 0.05 mg/L.
@@ -124,7 +126,7 @@ float orp_val = PhiGO.getORP();
 float do_val = PhiGO.getDO();
 ```
 
-## getSAT()
+### getSAT()
 * **Description:** get the *percent saturation* from Scientific Atlas sensor probe. The readings derived from getDO() function.
 * **Parameters:** none.
 * **Returns:** float data type ranges from 0.1 − 400+ % saturation.
@@ -133,7 +135,7 @@ float do_val = PhiGO.getDO();
 float sat_val = PhiGO.getSAT();
 ```
 
-## getRTD()
+### getRTD()
 * **Description:** get the *temperature* readings in degrees celcius from Scientific Atlas sensor probe.
 * **Parameters:** none.
 * **Returns:** float data type ranges from -126.000 °C − 1254 °C, with a resolution of 0.001 and accuracy of +/– (0.1 + 0.0017 x °C).
@@ -142,7 +144,7 @@ float sat_val = PhiGO.getSAT();
 float temp_val = PhiGO.getRTD();
 ```
 
-## getEC()
+### getEC()
 * **Description:** get the *electrical conductivity* readings from Scientific Atlas sensor probe. This also enable readings for total disolve solids, salinity, and specific gravity.
 * **Parameters:** none.
 * **Returns:** long data type ranges from 0.07 − 500,000+ μS/cm, with an accuracy of +/– 2%.
@@ -151,7 +153,7 @@ float temp_val = PhiGO.getRTD();
 unsigned long int ec_val = PhiGO.getEC();
 ```
 
-## getTDS()
+### getTDS()
 * **Description:** get the *total disolve solids* readings from Scientific Atlas sensor probe. The readings derived from getEC() function.
 * **Parameters:** none.
 * **Returns:** long data type, the data range, resolution, and accuracy are not stated in the datasheet.
@@ -160,7 +162,7 @@ unsigned long int ec_val = PhiGO.getEC();
 unsigned long int tds_val = PhiGO.getTDS();
 ```
 
-## getSAL()
+### getSAL()
 * **Description:** get the *salinity* readings from Scientific Atlas sensor probe. The readings derived from getEC() function.
 * **Parameters:** none.
 * **Returns:** float data type ranges from PSU (ppt) 0.00 – 42.00.
@@ -169,7 +171,7 @@ unsigned long int tds_val = PhiGO.getTDS();
 float sal_val = PhiGO.getSAL();
 ```
 
-## getSG()
+### getSG()
 * **Description:** get the *specific gravity* readings from Scientific Atlas sensor probe. The readings derived from getEC() function.
 * **Parameters:** none.
 * **Returns:** float data type ranges from 1.00 – 1.300 (sea water only).
@@ -178,7 +180,7 @@ float sal_val = PhiGO.getSAL();
 float sg_val = PhiGO.getSG();
 ```
 
-## getBattVolts()
+### getBattVolts()
 * **Description:** get the calculated *battery voltage* (13V max) readings from onboard voltage sensor.
 * **Parameters:** none.
 * **Returns:** float data type ranges from 0 - 13V.
@@ -187,7 +189,7 @@ float sg_val = PhiGO.getSG();
 float batt_volt_val = PhiGO.getBattVolts();
 ```
 
-## getBattPercent()
+### getBattPercent()
 * **Description:** get the calculated *battery percent level* readings from onboard voltage sensor.
 * **Parameters:** none.
 * **Returns:** int data type ranges from 0 - 100% (10.5V - 13V).
@@ -196,7 +198,7 @@ float batt_volt_val = PhiGO.getBattVolts();
 int batt_volt_percent_val = PhiGO.getBattPercent();
 ```
 
-## getBattStatus()
+### getBattStatus()
 * **Description:** get the *battery status* readings from onboard voltage sensor.
 * **Parameters:** none.
 * **Returns:** string data type, *"Fully charge"* if *battery percent level* <= 100% and >= 97%, *"OK"* if *battery percent level* < 97% and >= 75%, *"Low charge"* if *battery percent level* < 75% and >= 25%, and *"discharge"* if *battery percent level* < 25%.
@@ -205,7 +207,7 @@ int batt_volt_percent_val = PhiGO.getBattPercent();
 String batt_status = PhiGO.getBattStatus();
 ```
 
-## getDEPTH()
+### getDEPTH()
 * **Description:** get the calculated *water depth* (0 - 30meters proportional to 4 - 20mA) readings from Sendo pressure sensor. The calculation based on ohms law and slope intercept equations.
 * **Parameters:** none.
 * **Returns:** float data type ranges from 0 - 30m.
@@ -214,7 +216,7 @@ String batt_status = PhiGO.getBattStatus();
 float DEPTH_val = PhiGO.getDEPTH();
 ```
 
-## getDepth(uint8_t adc_zero_depth, float depth_sensor_slope)
+### getDepth(uint8_t adc_zero_depth, float depth_sensor_slope)
 * **Description:** get the calculated *water depth* readings from Sendo pressure sensor. The calculation based on predefined calibration.
 * **Parameters:** *adc_zero_depth* - a constant factor for zero reference, and *depth_sensor_slope* - a computed constant factor for linearity.
 * **Returns:** float data type, ranges are not defined.
@@ -226,7 +228,7 @@ float DEPTH_val = PhiGO.getDEPTH();
 float depth_val = PhiGO.getDepth(ADC_ZERO_DEPTH, DEPTH_SENSOR_SLOPE);
 ```
 
-## initSDCard()
+### initSDCard()
 * **Description:** initialized communication for micro SD card interface. Check if the SD card is properly mounted.
 * **Parameters:** none.
 * **Returns:** prints SD card status.
@@ -235,7 +237,7 @@ float depth_val = PhiGO.getDepth(ADC_ZERO_DEPTH, DEPTH_SENSOR_SLOPE);
 PhiGO.initSDCard();
 ```
 
-## writeData(const char* path, const char* message)
+### writeData(const char* path, const char* message)
 * **Description:** writes new data to the predefined file path directory on SD card. This will overide the previous data.
 * **Parameters:** *path* - is the file directory where the data to be stored, *message* - the data to be write.
 * **Returns:** none.
@@ -245,7 +247,7 @@ PhiGO.initSDCard();
 PhiGO.writeData("/data.txt", "timestamp, Battery level, Charge status, pH, DO, SAT, TempC, EC, TDS, SAL, SG, ORP, Depth, SWL \r\n");
 ```
 
-## appendData(const char* path, const char* message)
+### appendData(const char* path, const char* message)
 * **Description:** add new data to the predefined file path directory on SD card.
 * **Parameters:** *path* - is the file directory where the data to be stored, *message* - the data to be write.
 * **Returns:** none.
@@ -259,7 +261,7 @@ snprintf(data, BUFF_SIZE, "%s, %.2f, %s, %.2f, %.2f, %.2f, %.2f, %u, %u, %.2f, %
 PhiGO.appendData("/data.txt", data);
 ```
 
-## gprsInit(String apn, String username, String password)
+### gprsInit(String apn, String username, String password)
 * **Description:** initialize GPRS connection of GSM SIM 800l module for cellular network data transmission.
 * **Parameters:** *apn* - access point name e.g., "internet" or "smartlte" for SMART sim card, *username* - apn username if set, and *password* - apn password if set.
 * **Returns:** none.
@@ -272,7 +274,7 @@ String apn_p = "";                     // APN-Password, not set by default
 PhiGO.gprsInit(apn, apn_u, apn_p);
 ```
 
-## gprsGoogleSheet(String google_script_id, String payload)
+### gprsGoogleSheet(String google_script_id, String payload)
 * **Description:** logs sensor data to Google spreadsheet via GPRS HTTP request.
 * **Parameters:** *google_script_id* - Google ID obtain from script file, *payload* - sensor data format to store file to Google spreadsheet.
 * **Returns:** none.
@@ -284,7 +286,7 @@ String GSheet_payload = String("sensor=ESP32") + "&value=" + String(sensor);
 PhiGO.gprsGoogleSheet(GOOGLE_SCRIPT_ID, GSheet_payload);
 ```
 
-## gprsThingSpeak(String thingspeak_http_auth, String payload)
+### gprsThingSpeak(String thingspeak_http_auth, String payload)
 * **Description:** logs sensor data to ThingSpeak IoT platform via GPRS HTTP request.
 * **Parameters:** *thingspeak_http_auth* - authentication code obtain from thingspeak settings, *payload* - sensor data format to store file to thingspeak channel.
 * **Returns:** none.
@@ -296,7 +298,7 @@ String TS_payload = String("&field1=") + String(sensor);
 PhiGO.gprsThingSpeak(THINGSPEAK_AUTH, TS_payload);
 ```
 
-## gprsGoogleFirebase(String firebase_host, String firebase_path, String firebase_auth, String payload)
+### gprsGoogleFirebase(String firebase_host, String firebase_path, String firebase_auth, String payload)
 * **Description:** logs sensor data to Google Firebase real-time database via GPRS HTTP request.
 * **Parameters:** *firebase_host* - url code obtain firebase project, *firebase_path* - location where the sensor data to be stored, and *payload* - sensor data format should be in Javascript object notation (JSON).
 * **Returns:** none.
@@ -310,7 +312,7 @@ String Firebase_payload = String("{\"Value\":\"") + String(sensor) + "\"}";
 PhiGO.gprsGoogleFirebase(FIREBASE_HOST, FIREBASE_PATH, FIREBASE_AUTH, Firebase_payload);
 ```
 
-## gprsGetLocalTime()
+### gprsGetLocalTime()
 * **Description:** gets the local timestamp obtain from GSM SIM800l module.
 * **Parameters:** none.
 * **Returns:** parsed string data type of current date and time.
@@ -326,7 +328,7 @@ String timestamp = PhiGO.gprsGetLocalTime();
 if (!timestamp.equals("")) Serial.println("GPRS time stamp: " + timestamp);
 ```
 
-# AdmuWater Command Lines
+## 2.2 AdmuWater Command Lines
 | Terminal Command | Description |
 | ---------------- | ----------- |
 | admuwater -help | print command line for reference. |
@@ -346,3 +348,20 @@ if (!timestamp.equals("")) Serial.println("GPRS time stamp: " + timestamp);
 | admuwater cal -s ec clear | EC (Electrical Conductivity) delete calibration data. |
 | admuwater cal -s rtd -p boil | Temperature calibration at boiling point (100°C). |
 | admuwater cal -s rtd clear | Temperature delete calibration data. |
+
+# 3 AdmuWater GMP-PhiGO Rev 2.0
+The new sensor board was designed using onen-source and online [electronic design automation](https://easyeda.com/) tool, and fabricated the printed circuit board with industrial quality at [JLC PCB](https://jlcpcb.com/). The following features of the sensor board are:
+* Desgined for [LILYGO TTGO ESP-32 T-call v1.4](http://www.lilygo.cn/claprod_view.aspx?TypeId=62&Id=1403&FId=t28:62:28) IoT development MCU board with wireless SIM module.
+* GPIO exapansion pins for additional component interface.
+* I2C expansion ports (header pins, and JST pins) for [Scientific Atlas](https://atlas-scientific.com/) sensor circuit board.
+* Network (Wi-Fi or cellular GPRS) LEDs indicator.
+* Network switch button.
+* Battery voltage sensor (13 volts maximum).
+* Micro memory card slot.
+* 5V-5A DC-DC voltage regulator.
+* Terminal pins for power inputs (5V and 9-12V).
+* Pressure depth sensor terminal interface.
+
+
+
+*The circuit board is still undergoing testing and development.*.
