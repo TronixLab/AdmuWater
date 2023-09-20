@@ -1,0 +1,140 @@
+var headers = ["date", "ph", "ph2", "swl", "ec", "tds", "sal", "temp", "phtemp", "battlvl"];
+var ssTracker = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1yMQA1VDpyz_qwnBOwrWkhVq81BhWl0B0jW41wsvEy7Q/edit?usp=sharing"); //INSERT RECORDS FOLDER HERE
+var sheetTracker = ssTracker.getSheetByName("Sheet1")
+
+var allowedIDs = ["ENV001", "ENV002", "ENV003"];
+
+function doGet(e) {
+  if (allowedIDs.indexOf(e.parameter.id) === -1){
+    return ContentService.createTextOutput(JSON.stringify("Invalid ID")).setMimeType(ContentService.MimeType.JSON);
+  }
+  var action = e.parameter.action;
+
+  return getItems(e);
+  
+}
+
+// here handle with parameter
+function handleResponse(request) {
+  var output  = ContentService.createTextOutput();
+  
+  //search for url based on id
+  var id = request.parameter.id
+  var url = findUrl(id, sheetTracker);
+  
+  //open your spreadsheet by passing url
+  var ss = SpreadsheetApp.openByUrl(url);
+  var sheet = ss.getSheetByName("Sheet1");
+  
+  //create varibles to recieve respective parameters
+  var date =  new Date();
+  var ph = request.parameter.ph;
+  var ph2 = request.parameter.ph2;
+  var swl = request.parameter.swl;
+  var ec = request.parameter.ec;
+  var tds = request.parameter.tds;
+  var sal = request.parameter.sal;
+  var temp = request.parameter.temp;
+  var phtemp = request.parameter.phtemp;
+  var battlvl = request.parameter.battlvl;
+  
+  //add new row with recieved parameter from client
+  var rowData = sheet.appendRow([date, ph, ph2, swl, ec, tds, sal, temp, phtemp, battlvl]); 
+ 
+  //create response for client
+  var callback = request.parameters.callback;
+  if (callback === undefined) {
+    output.setContent(JSON.stringify("Success"));
+  } else {
+    output.setContent(callback + "(" + JSON.stringify("Success") + ")");
+  }
+
+  output.setMimeType(ContentService.MimeType.JSON);
+  
+  return output;
+}
+
+function getItems(e) {
+  var records={};
+  
+  //search for url based on id
+  var id = e.parameter.id
+  var url = findUrl(id, sheetTracker);
+  
+  // open your spreadsheet by passing url
+  var ss = SpreadsheetApp.openByUrl(url);
+  var sheet = ss.getSheetByName("Sheet1");
+  
+  // get number of rows
+  var rows = sheet.getRange(2, 1, sheet.getLastRow() - 1,sheet.getLastColumn()).getValues();
+  data = [];
+  
+  // set start point
+  var startPoint = 0;
+  var numberItems = e.parameter.numberItems;
+  if (numberItems != null)
+    startPoint = rows.length - numberItems;
+  
+  // run through the data
+  for (var r = startPoint, l = rows.length; r < l; r++) {
+    var row     = rows[r],
+        record  = {};
+    for (var i = 0, m = headers.length; i < m; i++) {
+      record[headers[i]] = row[i];
+    }
+
+    data.push(record);
+    
+  }
+  
+  records.items = data;
+  var result = JSON.stringify(records);
+  return ContentService.createTextOutput(result).setMimeType(ContentService.MimeType.JSON);
+}
+
+// Finds the Index of an ID
+function findIndex(data, sheetTracker) {
+
+  var column = sheetTracker.getRange("A:A");
+  var values = column.getValues(); 
+  
+  // search function
+  for(var i = 0, iLen = values.length; i < iLen; i++) {
+    if(values[i][0] == data) {
+      Logger.log(i);
+      return i; 
+    }
+  }
+  return -1;
+  
+}
+
+// Finds the URL of an ID
+function findUrl(data, sheetTracker) {
+  var column = sheetTracker.getRange(2, 1, sheetTracker.getLastRow()-1, 2)
+  var values = column.getValues();
+  
+  // search function
+  for(var i = 0, iLen = values.length; i < iLen; i++) {
+    if(values[i][0] == data) {
+      Logger.log(values[i][1]);
+      return values[i][1];
+    }
+  }
+  return -1; 
+}
+
+function _getHeaderRow(sheetObject) {
+   var sh = sheetObject;
+   return sh.getRange(1, 1, 1, sh.getLastColumn()).getValues()[0];
+}
+ 
+function response() {
+   return {
+      json: function(data) {
+         return ContentService
+            .createTextOutput(JSON.stringify(data))
+            .setMimeType(ContentService.MimeType.JSON);
+      }
+   }
+}
