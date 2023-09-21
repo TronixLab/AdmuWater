@@ -1,0 +1,11 @@
+name=EnviSense
+version=1.3.5B
+author=Paul Ryan A. Santiago <psantiago@ateneo.edu>
+maintainer=Paul Ryan A. Santiago <psantiago@ateneo.edu>
+sentence=<h3>EnviSense library for customize water sensor probe</h3>
+paragraph=Simplified functions for interfacing Scientific Atlas Sensors via I2C protocol, depth measurement, logging data to mini SD card, GPRS network HTTP communication for ThingSpeak, Google Sheet, and Google Firebase.
+category=Communication, Sensors, Data Storage
+url=https://github.com/TronixLab/AdmuWater
+architectures=arduino
+license=MIT
+includes=Wire.h, SD.h, SPI.h, SoftwareSerial.h, EEPROM.h
